@@ -1,0 +1,63 @@
+{
+  "name": "testing-react-components",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/js/components.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "precompile": "npm run clean",
+    "compile": "run-p compile:*",
+    "compile:html": "eleventy --config=config/eleventy.config.js",
+    "compile:js": "esbuild src/app.js --bundle --loader:.js=jsx --minify --outdir=dist/js --sourcemap",
+    "compile:scss": "sass docs/scss:dist/css",
+    "compile:storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook --config-dir=config/storybook --disable-telemetry --output-dir=dist/storybook",
+    "compile:ts": "esbuild docs/ts/script.ts --bundle --minify --outdir=dist/js --sourcemap",
+    "preserve": "npm run clean",
+    "serve": "run-p serve:*",
+    "serve:html": "npm run compile:html -- --serve",
+    "serve:js": "npm run compile:js -- --watch",
+    "serve:scss": "npm run compile:scss -- --watch",
+    "serve:storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook --config-dir=config/storybook --disable-telemetry --port=6060",
+    "serve:ts": "npm run compile:ts -- --watch",
+    "start": "npm run serve",
+    "test": "jest --config=config/jest.config.js",
+    "test:watch": "npm test -- --watch",
+    "typecheck": "tsc",
+    "typecheck:watch": "npm run typecheck -- --watch"
+  },
+  "keywords": [],
+  "author": "Paul Shryock <paul@pshry.com> (https://github.com/paulshryock)",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0-canary.11",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@storybook/addon-actions": "^6.5.7",
+    "@storybook/addon-essentials": "^6.5.7",
+    "@storybook/addon-interactions": "^6.5.7",
+    "@storybook/addon-links": "^6.5.7",
+    "@storybook/builder-webpack4": "^6.5.7",
+    "@storybook/manager-webpack4": "^6.5.7",
+    "@storybook/react": "^6.5.7",
+    "@storybook/testing-library": "^0.0.11",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@types/node": "^17.0.41",
+    "babel-jest": "^28.1.1",
+    "babel-loader": "^8.2.5",
+    "esbuild": "^0.14.43",
+    "jest": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
+    "npm-run-all2": "^5.0.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "sass": "^1.52.2",
+    "typescript": "^4.7.3"
+  },
+  "engines": {
+    "node": "^18.0.0"
+  },
+  "babel": {
+    "presets": ["@babel/preset-react"]
+  }
+}

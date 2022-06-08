@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if slide.index %}{{ slide.index }}: {% endif %}{{ slide.title }}</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&IBM+Plex+Sans:wght@100;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="slide">
+  {%- if slide.title %}
+  <header class="slide__header">
+    <h1 class="slide__title" data-index={{ slide.index }}>{{ slide.title }}</h1>
+    {%- if slide.description %}
+    <p class="slide__description">{{ slide.description }}</p>
+    {%- endif %}
+  </header>
+  {%- endif %}
+
+  <article class="slide__content{% if slide.layout %} slide__content_{{ slide.layout }}{% endif %}">
+    {{ content }}
+    {%- if slide.not %}
+    <h2 class="slide__subhead">{{ slide.title }} is not necessarily:</h2>
+    <ul>
+      {%- for not in slide.not %}
+      <li>{{ not }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </article>
+  <script src="/js/script.js" async defer></script>
+  <script src="/js/app.js" async defer></script>
+</body>
+</html>
