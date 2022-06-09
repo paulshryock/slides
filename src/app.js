@@ -9,7 +9,7 @@ function init() {
   }
 
   const appContainer = document.createElement('div')
-  document.querySelector('main')?.appendChild(appContainer)
+  document.querySelector('.slide__content')?.appendChild(appContainer)
   createRoot(appContainer).render(<Button label='Click me' onClick={onClick} />)
 }
 

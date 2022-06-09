@@ -8,6 +8,7 @@ npm start
 ```
 
 - Slides: http://localhost:8080
+  - Navigate slides with left and right arrow keys
 - Storybook: http://localhost:6060
 - Website using the React component: http://localhost:8080/site
 

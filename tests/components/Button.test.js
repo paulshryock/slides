@@ -1,13 +1,13 @@
 const { Button } = require('../../src/components.js')
 require('@testing-library/jest-dom')
-const { fireEvent, render, waitFor } = require('@testing-library/react')
+const { fireEvent, render } = require('@testing-library/react')
 const React = require('react')
 
 describe('Button', () => {
   it.each([
-    ['', false, 'does not'],
-    ['Lorem ipsum', true, 'does'],
-  ])('$3 render a button element with label "$1"', (label, expected, _) => {
+    ['', false],
+    ['Lorem ipsum', true],
+  ])('renders a button element with label "%s": %s', (label, expected) => {
     const { queryByRole } = render(<Button label={label} />)
     const button = queryByRole('button')
 

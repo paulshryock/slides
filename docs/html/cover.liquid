@@ -1,0 +1,16 @@
+---
+title: Testing React Components
+layout: cover
+permalink: ./index.html
+---
+{%- if slides %}
+<ol>
+  {%- for slide in slides %}
+  {%- if slide.cover == true %}
+  <li>
+    <strong><a href="/{{ slide.index }}/">{{ slide.title }}</a>:</strong> {{ slide.description }}
+  </li>
+  {%- endif %}
+  {%- endfor %}
+</ol>
+{%- endif %}

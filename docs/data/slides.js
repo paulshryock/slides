@@ -85,11 +85,12 @@ module.exports = [
   },
   {
     index: 7,
-    title: 'Test a React component',
+    title: 'Test a JavaScript function',
+    description: 'With Jest',
     content: `<ol>
       <li>Install dependencies</li>
       <li>Setup and configure tooling</li>
-      <li>Write tests</li>
+      <li>Write tests (<a href="https://jestjs.io/docs/api">Jest documentation</a>)</li>
       <li>Run tests</li>
     </ol>`,
   },
@@ -102,25 +103,17 @@ module.exports = [
 mkdir -p my-project
 cd my-project
 
+git init
+
 npm init --yes
-npm install -D react \\
-  react-dom \\
-  jest \\
-  jest-environment-jsdom \\
-  @testing-library/react \\
-  @testing-library/jest-dom \\
-  @babel/core \\
-  @babel/preset-react \\
-  babel-jest
+npm install -D jest
 </code></pre>
 <pre><code>\/\/ package.json
 {
+  ...,
   "scripts": {
-    "test": "jest",
+    "test": "jest --config=config/jest.config.js",
     "test:watch": "npm test -- --watch"
-  },
-  "devDependencies": {
-    ...
   }
 }
 </code></pre>`,
@@ -128,25 +121,17 @@ npm install -D react \\
   {
     index: 9,
     title: 'Setup and configure tooling',
-    layout: 'columns',
-    content: `<pre><code>\/\/ jest.config.js
+    content: `<pre><code>\/\/ config/jest.config.js
 module.exports = {
   bail: true,
   collectCoverage: true,
   collectCoverageFrom: ["src/**"],
   coverageDirectory: "coverage",
-  coverageProvider: "babel",
   coverageThreshold: {
     global: { statements: 100, branches: 100, functions: 100, lines: 100 },
   },
-  testEnvironment: "jsdom",
-  transform: {
-    "^.+\\.jsx?$": "babel-jest",
-  },
-}</code></pre>
-<pre><code>\/\/ babel.config.js
-module.exports = {
-  presets: ['@babel/preset-react'],
+  rootDir: '../',
+  testEnvironment: "node",
 }</code></pre>`,
   },
   {
@@ -171,32 +156,82 @@ module.exports = {
   },
   {
     index: 12,
-    title: 'View a React component story',
+    title: 'Test a React component',
+    description: 'With Jest and Testing Library',
     content: `<ol>
       <li>Install dependencies</li>
       <li>Setup and configure tooling</li>
-      <li>Write stories</li>
-      <li>Run Storybook</li>
+      <li>Write tests (<a href="https://testing-library.com/docs/react-testing-library/intro">Testing Library documentation</a>)</li>
+      <li>Run tests</li>
     </ol>`,
   },
   {
     index: 13,
     title: 'Install dependencies',
-    content: `<pre><code>npx init storybook</code></pre>
+    content: `<ul>
+  <li>Babel for transpiling JSX to JS</li>
+  <li>Testing Library for testing a simulated DOM</li>
+  <li>Some plugins to connect everything</li>
+</ul>
+<pre><code>npm install -D react \\
+  react-dom \\
+  @babel/core \\
+  @babel/preset-react \\
+  babel-jest \\
+  @testing-library/react \\
+  @testing-library/jest-dom \\
+  jest-environment-jsdom</code></pre>`,
+  },
+  {
+    index: 14,
+    title: 'Setup and configure tooling',
+    layout: 'columns',
+    content: `<pre><code>\/\/ config/jest.config.js
+module.exports = {
+  ...,
+  coverageProvider: "babel",
+  testEnvironment: "jsdom",
+  transform: {
+    "^.+\.jsx?$": "babel-jest",
+  },
+}</code></pre>
 <pre><code>\/\/ package.json
 {
-  "scripts": {
-    "compile:storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook --config-dir=config/storybook",
-    "serve:storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook --config-dir=config/storybook --port=6060"
-  },
-  "devDependencies": {
-    ...
+  ...,
+  "babel": {
+    "presets": ["@babel/preset-react"]
   }
 }
 </code></pre>`,
   },
   {
-    index: 14,
+    index: 15,
+    title: 'View a React component story',
+    description: 'With Storybook',
+    content: `<ol>
+      <li>Install dependencies</li>
+      <li>Setup and configure tooling</li>
+      <li>Write stories (<a href="https://storybook.js.org/docs/react/get-started/introduction">Storybook documentation</a>)</li>
+      <li>Run Storybook</li>
+    </ol>`,
+  },
+  {
+    index: 16,
+    title: 'Install dependencies',
+    content: `<pre><code>npx storybook init</code></pre>
+<p>Replace \`storybook\` and \`build-storybook\` scripts and move configs files.</p>
+<pre><code>\/\/ package.json
+{
+  "scripts": {
+    ...,
+    "compile:storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook --config-dir=config/storybook",
+    "serve:storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook --config-dir=config/storybook --port=6060"
+  }
+}
+</code></pre>`,
+  },
+  {
+    index: 17,
     title: 'Setup and configure tooling',
     layout: 'columns',
     content: `<pre><code>\/\/ config/storybook/main.js
@@ -224,17 +259,23 @@ export const parameters = {
 }</code></pre>`,
   },
   {
-    index: 15,
+    index: 18,
     title: 'Write stories',
     content: `<ul>
       <li>List the stories for each component</li>
       <li>Consider business requirements and user stories as criteria</li>
       <li>Setup a template and instantiate with different args for each story</li>
-      <li>Stories are not source code; put them in <code>/stories</code></li>
+      <li>Stories are not source code; put them in <code>/stories</code>
+        <ul>
+          <li>Move <code>.storybook</code> to <code>config/storybook</code></li>
+          <li>In <code>config/storybook/main.js</code> update <code>stories</code> paths:<br />
+            <code>../src</code> to <code>../../stories</code></li>
+        </ul>
+      </li>
     </ul>`,
   },
   {
-    index: 16,
+    index: 19,
     title: 'Run Storybook',
     content: `<ul>
       <li>Compile on-demand: <code>npm run compile:storybook</code></li>
@@ -244,7 +285,7 @@ export const parameters = {
     </ul>`,
   },
   {
-    index: 17,
+    index: 20,
     title: 'Checkout the repo',
     content: '<p><a href="https://github.com/paulshryock/testing-react-components">github.com/paulshryock/testing-react-components</a></p>',
   },
