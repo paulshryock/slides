@@ -9,6 +9,7 @@ npm start
 
 - Slides: http://localhost:8080
 - Storybook: http://localhost:6060
+- Website using the React component: http://localhost:8080/site
 
 ## File structure
 

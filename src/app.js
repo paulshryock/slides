@@ -9,7 +9,7 @@ function init() {
   }
 
   const appContainer = document.createElement('div')
-  document.body.appendChild(appContainer)
+  document.querySelector('main')?.appendChild(appContainer)
   createRoot(appContainer).render(<Button label='Click me' onClick={onClick} />)
 }
 
