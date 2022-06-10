@@ -26,7 +26,7 @@
     "clean": "rm -rf dist",
     "precompile": "npm run clean",
     "compile": "run-p compile:*",
-    "compile:components": "esbuild src/components.js --bundle --external:react --loader:.js=jsx --minify --outdir=dist/js",
+    "compile:components": "esbuild src/components.js --bundle --external:react --loader:.js=jsx --format=esm --minify --outdir=dist/js",
     "compile:html": "eleventy --config=config/eleventy.config.js",
     "compile:js": "esbuild src/app.js --bundle --loader:.js=jsx --minify --outdir=dist/js --sourcemap",
     "compile:scss": "sass docs/scss:dist/css",
