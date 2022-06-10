@@ -1,3 +1,6 @@
 coverage/
-dist/
+dist/*
+!dist/js
+dist/js/*
+!dist/js/components.js
 node_modules/
